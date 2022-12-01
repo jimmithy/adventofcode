@@ -39,7 +39,7 @@ func GetElves(input *os.File) []int {
 	for scanner.Scan() {
 		line, lineErr := strconv.Atoi(scanner.Text())
 
-		if lineErr != nil || &line == nil {
+		if lineErr != nil {
 			// Empty line, so start a new elf
 			elves = append(elves, 0)
 		} else {
