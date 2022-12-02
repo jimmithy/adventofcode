@@ -24,5 +24,6 @@ func main() {
 	// fmt.Println("Day One Part Two: " + dayOne.PartTwo(elves))
 
 	// Day Two
-	fmt.Println("Day Two Part One: " + dayTwo.PartOne(file))
+	// fmt.Println("Day Two Part One: " + dayTwo.PartOne(file))
+	fmt.Println("Day Two Part Two: " + dayTwo.PartTwo(file))
 }

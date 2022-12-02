@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"os"
 	"strconv"
+	"strings"
 )
 
 func PartOne(input *os.File) string {
@@ -26,6 +27,54 @@ func PartOne(input *os.File) string {
 
 	for scanner.Scan() {
 		total += scores[scanner.Text()]
+	}
+
+	return strconv.Itoa(total)
+}
+
+func PartTwo(input *os.File) string {
+	scanner := bufio.NewScanner(input)
+
+	// Define a key value pair for the scoring
+	scores := make(map[string]int)
+	scores["A"] = 1
+	scores["B"] = 2
+	scores["C"] = 3
+
+	total := 0
+
+	for scanner.Scan() {
+		line := strings.Split(scanner.Text(), " ")
+
+		if line[1] == "X" {
+			// Round must end in a loss
+			// total += 0
+
+			// Determine what should be played, and add to total
+			if line[0] == "A" {
+				total += scores["C"]
+			} else if line[0] == "B" {
+				total += scores["A"]
+			} else if line[0] == "C" {
+				total += scores["B"]
+			}
+		} else if line[1] == "Y" {
+			// Round must end in a draw
+			// Return total plus the value of whatever they played
+			total += 3 + scores[line[0]]
+		} else if line[1] == "Z" {
+			// Round must end with a win
+			total += 6
+
+			// Determine what should be played, and add to total
+			if line[0] == "A" {
+				total += scores["B"]
+			} else if line[0] == "B" {
+				total += scores["C"]
+			} else if line[0] == "C" {
+				total += scores["A"]
+			}
+		}
 	}
 
 	return strconv.Itoa(total)
