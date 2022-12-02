@@ -5,12 +5,12 @@ import (
 	"log"
 	"os"
 
-	dayOne "jamesob/aoc/2022/01"
+	dayTwo "jamesob/aoc/2022/02"
 )
 
 func main() {
 
-	file, err := os.Open("01/input.txt")
+	file, err := os.Open("02/input.txt")
 
 	if err != nil {
 		log.Fatal(err)
@@ -19,7 +19,10 @@ func main() {
 	defer file.Close()
 
 	// Day One
-	elves := dayOne.GetElves(file)
-	fmt.Println("Day One Part One: " + dayOne.PartOne(elves))
-	fmt.Println("Day One Part Two: " + dayOne.PartTwo(elves))
+	// elves := dayOne.GetElves(file)
+	// fmt.Println("Day One Part One: " + dayOne.PartOne(elves))
+	// fmt.Println("Day One Part Two: " + dayOne.PartTwo(elves))
+
+	// Day Two
+	fmt.Println("Day Two Part One: " + dayTwo.PartOne(file))
 }
