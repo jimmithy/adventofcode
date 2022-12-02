@@ -2,14 +2,15 @@ package main
 
 import (
 	"fmt"
-	"jamesob/aoc/2022/code"
 	"log"
 	"os"
+
+	dayOne "jamesob/aoc/2022/01"
 )
 
 func main() {
 
-	file, err := os.Open("input.txt")
+	file, err := os.Open("01/input.txt")
 
 	if err != nil {
 		log.Fatal(err)
@@ -18,7 +19,7 @@ func main() {
 	defer file.Close()
 
 	// Day One
-	elves := code.GetElves(file)
-	fmt.Println("Day One Part One: " + code.PartOne(elves))
-	fmt.Println("Day One Part Two: " + code.PartTwo(elves))
+	elves := dayOne.GetElves(file)
+	fmt.Println("Day One Part One: " + dayOne.PartOne(elves))
+	fmt.Println("Day One Part Two: " + dayOne.PartTwo(elves))
 }
