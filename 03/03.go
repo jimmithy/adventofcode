@@ -58,7 +58,7 @@ func PartTwo(input *os.File) string {
 			second = line
 		} else {
 			for _, character := range line {
-				// Does the character exist in the right compartment
+				// Does the character exist in the other two compartments
 				if strings.IndexRune(first, character) != -1 && strings.IndexRune(second, character) != -1 {
 					// use the position to get the priority
 					position := strings.IndexRune(priorities, unicode.ToLower(character)) + 1
