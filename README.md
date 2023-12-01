@@ -1,6 +1,7 @@
 # adventofcode
 Advent of Code
 
-Using this as an opportunity to learn Go.
+Using this as an opportunity to practices languages.
 
-* [2022](/2022/)
+* [2021: Bash](/2021/)
+* [2022: Go](/2022/)
