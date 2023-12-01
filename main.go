@@ -5,12 +5,12 @@ import (
 	"log"
 	"os"
 
-	code "jamesob/aoc/2022/06"
+	code "jamesob/aoc/2022/07"
 )
 
 func main() {
 
-	file, err := os.Open("06/input.txt")
+	file, err := os.Open("07/input.txt")
 
 	if err != nil {
 		log.Fatal(err)
@@ -18,5 +18,5 @@ func main() {
 
 	defer file.Close()
 
-	fmt.Println(code.FindMarkers(file, 14))
+	fmt.Println(code.PartOne(file))
 }
