@@ -1,4 +1,6 @@
-# adventofcode2022
-Advent of Code 2022
+# adventofcode
+Advent of Code
 
 Using this as an opportunity to learn Go.
+
+* [2022](/2022/)
