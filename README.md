@@ -1,6 +1,8 @@
 # adventofcode
 Advent of Code
 
+https://adventofcode.com/
+
 Using this as an opportunity to practice languages I don't get to use often
 
 * [2021: Bash](/2021/)
