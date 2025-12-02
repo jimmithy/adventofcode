@@ -94,19 +94,18 @@ func partTwo(scanner *bufio.Scanner) {
 				direction = -1
 			}
 
+			// Loop through clicks one by one
 			for i := 0; i < clicks; i++ {
 				dial = dial + direction
 
 				if dial > 99 {
 					dial = 0
-					passesZero = passesZero + 1
 				} else if dial < 0 {
 					dial = 99
-					passesZero = passesZero + 1
 				}
 
-				// If we're about to finish and we're on 0, count it
-				if dial == 0 && i == clicks-1 {
+				// dial is at zero, so count it
+				if dial == 0 {
 					passesZero = passesZero + 1
 				}
 			}
