@@ -19,7 +19,7 @@ func main() {
 
 	scanner := bufio.NewScanner(file)
 
-	dayThree(scanner)
+	dayThreePartTwo(scanner)
 }
 
 func dayThree(scanner *bufio.Scanner) {
@@ -63,3 +63,50 @@ func dayThree(scanner *bufio.Scanner) {
 
 	println("Part 1: ", partOneTotal)
 }
+
+/**
+* Find the largest twelve digit number from each line
+ */
+func dayThreePartTwo(scanner *bufio.Scanner) {
+	total := 0
+
+	for scanner.Scan() {
+		line := scanner.Text()
+		length := len(line)
+		largestNumber := []string{}
+		largestNumberIndex := 0
+		println("Processing line: ", line)
+
+		// Within each line, find the largest twelve digit number
+		for j := 0; j < 12; j++ {
+			nextLargestNumber := 0
+
+			for i := largestNumberIndex + 1; i < length; i++ {
+				nextNumber, _ := strconv.Atoi(string(line[i]))
+
+				if nextNumber > nextLargestNumber {
+					nextLargestNumber = nextNumber
+					largestNumberIndex = i
+				}
+				// If there aren't enough digits left to complete the twelve digit number, break
+				if (length - 1 - i) < (12 - j) {
+					break
+				}
+			}
+
+			largestNumber = append(largestNumber, strconv.Itoa(nextLargestNumber))
+		}
+
+		// Calculate the total for part one
+		result := strings.Join(largestNumber, "")
+		println("Largest Number: ", result)
+		num, _ := strconv.Atoi(result)
+		total += num
+	}
+
+	println("Part 2: ", total)
+}
+
+/// 7755 4422 2223
+/// 7755 4422 2223
+/// 2221235222332215222222222212722222334222723221322222522222122222423212222222122124353332123442222223
