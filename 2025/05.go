@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"slices"
 	"strconv"
 	"strings"
 )
@@ -63,4 +64,44 @@ func main() {
 	}
 
 	println("Part One:", total)
+
+	// Count the number of ingredientIds that are fresh
+	count := 0
+
+	// Sort the ranges by min value
+	slices.SortFunc(freshIngredients, func(a, b IngredientRange) int {
+		return a.min - b.min
+	})
+
+	// Merge overlapping ranges
+	mergedRanges := []IngredientRange{}
+
+	for i := 0; i < len(freshIngredients); i++ {
+		currentRange := freshIngredients[i]
+
+		if len(mergedRanges) == 0 {
+			// add the first range
+			mergedRanges = append(mergedRanges, currentRange)
+			continue
+		}
+
+		for j := 0; j < len(mergedRanges); j++ {
+			if currentRange.max >= mergedRanges[j].min && currentRange.min <= mergedRanges[j].max {
+				// Ranges overlap, so merge them
+				mergedRanges[j].min = min(mergedRanges[j].min, currentRange.min)
+				mergedRanges[j].max = max(mergedRanges[j].max, currentRange.max)
+				break
+			} else if j == len(mergedRanges)-1 {
+				// No overlap found, so add the current range to mergedRanges
+				mergedRanges = append(mergedRanges, currentRange)
+			}
+		}
+	}
+
+	// Count total number of fresh ingredient IDs
+	for i := 0; i < len(mergedRanges); i++ {
+		count += (mergedRanges[i].max - mergedRanges[i].min + 1)
+	}
+
+	println("Part Two:", count)
 }
