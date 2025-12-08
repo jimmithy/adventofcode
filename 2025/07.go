@@ -2,9 +2,11 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
 	"os"
 	"slices"
+	"strings"
 )
 
 func main() {
@@ -25,13 +27,8 @@ func main() {
 		lines = append(lines, line)
 	}
 
-	println("Part One: ", daySevenPartOne(lines))
-}
-
-func daySevenPartOne(lines []string) int {
-
-	// This is the total number of times the lines are split
-	total := 0
+	// This is the totalSplits number of times the lines are split
+	totalSplits := 0
 
 	// First line, find the start index
 	firstLine := lines[0]
@@ -55,7 +52,7 @@ func daySevenPartOne(lines []string) int {
 		foundBeams := make([]int, 0)
 		for _, beam := range beams {
 			if line[beam] == '^' {
-				total += 1
+				totalSplits += 1
 				foundBeams = append(foundBeams, beam)
 			}
 		}
@@ -73,7 +70,23 @@ func daySevenPartOne(lines []string) int {
 		}
 	}
 
-	return total
+	println("Part One", totalSplits)
+
+	trimmedLines := []string{}
+
+	for _, line := range lines {
+		if strings.Contains(line, "^") {
+			fmt.Printf("%v\n", line)
+			trimmedLines = append(trimmedLines, line)
+		}
+	}
+
+	// Part Two: Count unique paths to the bottom
+	totalLength := len(trimmedLines)
+	visited := make(map[int]int)
+	possiblePaths := search(trimmedLines, 0, totalLength, startIndex, visited)
+
+	println("Part Two", possiblePaths)
 }
 
 func addUnique(beams []int, value int) []int {
@@ -83,4 +96,33 @@ func addUnique(beams []int, value int) []int {
 		}
 	}
 	return append(beams, value)
+}
+
+func search(lines []string, lineIndex int, totalLength int, beamIndex int, visited map[int]int) int {
+	if lineIndex >= totalLength {
+		return 1
+	}
+
+	// Have we been here before?
+	key := lineIndex*1000 + beamIndex
+	if visited[key] != 0 {
+		return visited[key]
+	}
+
+	currentLine := lines[lineIndex]
+	result := 0
+
+	if currentLine[beamIndex] == '^' {
+		// left path
+		left := search(lines, lineIndex+1, totalLength, beamIndex-1, visited)
+		// right path
+		right := search(lines, lineIndex+1, totalLength, beamIndex+1, visited)
+		result = left + right
+	} else if currentLine[beamIndex] == '.' {
+		// Next Level down
+		result = search(lines, lineIndex+1, totalLength, beamIndex, visited)
+	}
+
+	visited[key] = result
+	return result
 }
